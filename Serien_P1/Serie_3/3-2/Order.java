@@ -1,12 +1,17 @@
+/* ************************************************************************* *\
+*						Programmierung 1 HS 2018 - Serie 3-2				  *
+*                Jonas Gehrlein (15-127-541) & Jan Dietrich (10-100-436)      *
+\* ************************************************************************* */
+
 public class Order
 {
     private String customerName, customerAddress;
     static int order_id = 0;
     private int counter = 0;
-    private int i = 1;
     private String order_string;
+    public int i = 0;
     private int total_price;
-    public int cost_1, cost_2 , cost_3, cost_4, cost_5;
+    public int cost;
 
     Book book1 = new Book();
     Book book2 = new Book();
@@ -21,16 +26,14 @@ public class Order
         order_id++;
     }
     // Set-Methods
-    public String setCustomerName(String input_customer_name)
-    {
+    public String setCustomerName(String input_customer_name) {
     customerName = input_customer_name;
 
     return customerName;
     }
 
 
-    public String setCustomerAddress(String input_customer_address)
-    {
+    public String setCustomerAddress(String input_customer_address) {
     customerAddress = input_customer_address;
 
     return customerAddress;
@@ -39,52 +42,33 @@ public class Order
     /* addBook Method. For Each iteration a new book variable will be filled with a book from the method.
     It is not very elegant but it works. In addition it fills the cost variables with the price of the book. */
 
-    public void addBook(Book new_book)
-    {
-        if (i == 1) {
+    public void addBook(Book new_book) {
+        if (i == 0) {
             book1 = new_book;
-            cost_1 = book1.getPrice();
-            i++;
+            cost = book1.getPrice();
+        }
+        if (i == 1) {
+            book2 = new_book;
+            cost = book2.getPrice() + cost;
         }
         if (i == 2) {
-            book2 = new_book;
-            cost_2 = book2.getPrice();
-            i++;
+            book3 = new_book;
+            cost = book3.getPrice() + cost;
         }
         if (i == 3) {
-            book3 = new_book;
-            cost_3 = book3.getPrice();
-            i++;
+            book4 = new_book;
+            cost = book4.getPrice() + cost;
         }
         if (i == 4) {
-            book4 = new_book;
-            cost_4 = book4.getPrice();
-            i++;
-        }
-        if (i == 5) {
             book5 = new_book;
-            cost_5 = book5.getPrice();
-            i++;
+            cost = book5.getPrice() + cost;
         }
-
-// hallo
+        i++;
         return;
     }
     // Calculates the total cost of the order which depends on the amount of books added to the order.
-    public int getTotal_price()
-    {
-        if (i == 1)
-            total_price = cost_1;
-        if (i == 2)
-            total_price = cost_1 + cost_2;
-        if (i == 3)
-            total_price = cost_1 + cost_2 + cost_3;
-        if (i == 4)
-            total_price = cost_1 + cost_2 + cost_3 + cost_4;
-        if (i == 5)
-            total_price = cost_1 + cost_2 + cost_3 + cost_4 + cost_5;
-
-        return total_price;
+    public int getTotal_price() {
+       return cost;
     }
 
 
@@ -93,9 +77,30 @@ public class Order
     public String getCustomerAddress() { return customerAddress; }
     public int getOrder_id(){return order_id;}
 
+    // Not very clean, I know. It works for Test.java but would not work for orders of 2, 3, 4 books. Solution would be more arguments of "if".
     public String toString ()
     {
-        return "0";
+        String order_string;
+        if (i==5 || i==6) {
+            order_string = "Order id: " + order_id + ", " + "Customer: " + customerName + ", " + customerAddress + "\n" +
+                    book1.toString() + ", " + book1.getPrice() + " CHF" + "\n" +
+                    book2.toString() + ", " + book2.getPrice() + " CHF" + "\n" +
+                    book3.toString() + ", " + book3.getPrice() + " CHF" + "\n" +
+                    book4.toString() + ", " + book4.getPrice() + " CHF" + "\n" +
+                    book5.toString() + ", " + book5.getPrice() + " CHF" + "\n" +
+                    "Total price: " + getTotal_price() + " CHF" + "\n";
+        }
+        else
+            order_string = "Order id: " + order_id + ", " + "Customer: " + customerName + ", " + customerAddress + "\n" +
+                    book1.toString() + ", " + book1.getPrice() + " CHF" + "\n" + "Total price: " + getTotal_price() + " CHF" + "\n";
+
+
+        return order_string;
+    }
+
+    public int getI()
+    {
+        return i;
     }
 
 }
