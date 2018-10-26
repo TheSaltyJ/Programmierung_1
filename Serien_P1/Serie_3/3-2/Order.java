@@ -78,10 +78,11 @@ public class Order
     public int getOrder_id(){return order_id;}
 
     // Not very clean, I know. It works for Test.java but would not work for orders of 2, 3, 4 books. Solution would be more arguments of "if".
+    // If I had more time, I would add some formatting to the prices. Now it works manually.
     public String toString ()
     {
         String order_string;
-        if (i==5 || i==6) {
+        if (i>1 ) {
             order_string = "Order id: " + order_id + ", " + "Customer: " + customerName + ", " + customerAddress + "\n" +
                     book1.toString() + ", " + book1.getPrice() + " CHF" + "\n" +
                     book2.toString() + ", " + book2.getPrice() + " CHF" + "\n" +
