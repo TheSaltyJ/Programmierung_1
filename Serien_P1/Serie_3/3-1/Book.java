@@ -1,6 +1,7 @@
 /* ************************************************************************* *\
 *						Programmierung 1 HS 2018 - Serie 3-1				  *
 *                Jonas Gehrlein (15-127-541) & Jan Dietrich (10-100-436)      *
+*                					File: Book.java							  *
 \* ************************************************************************* */
 import java.util.Date;
 import java.util.Scanner;

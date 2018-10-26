@@ -1,6 +1,7 @@
 /* ************************************************************************* *\
-*						Programmierung 1 HS 2018 - Serie 3-2				  *
+*						Programmierung 1 HS 2018 - Serie 3-3				  *
 *                Jonas Gehrlein (15-127-541) & Jan Dietrich (10-100-436)      *
+*                					File: Aufgabe3.java						  *
 \* ************************************************************************* */
 
 /* Aufgabe 3-3
@@ -24,6 +25,8 @@ a = 0, b = 0
 		System.out.println(i);
 	
 3)
+Das Programm kompiliert ohne Probleme. Wenn man es aber ausführt und nicht direkt das statement "counter != limit" false ist,
+führt das aber zu einer endlosschleife. Um das Problem zu beheben sollte man die abfrage auf "counter <= limit".
 
 
 

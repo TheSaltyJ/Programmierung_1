@@ -2,16 +2,14 @@ public class test{
 	
 	public static void main(String[] args){
 		
-		System.out.println(dreierReihe(3));
+		System.out.println(dreierReihe(30));
 		
 	}
 	
 	public static String dreierReihe(int limit){
 		String result = "";
-		int counter = 3; 
-		for(counter != limit ){
+		for(int counter = 3; counter <= limit; counter += 3){
 			result = result + counter + " ";
-			counter += 3;
 		}
 		return result;
 	}
