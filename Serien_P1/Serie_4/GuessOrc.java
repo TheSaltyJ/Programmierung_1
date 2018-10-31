@@ -18,7 +18,8 @@ public class GuessOrc {
 	public int guessedMineShaftID;
 	// Store the orc chieftain position.
 	private int mineShaftId;
-
+	//Start with Round 1
+	public int current_round = 1;
 	// Amount of attempts we get to stop the orcs.
 	// Use 'MAX_ATTEMPTS'' instead of coding a number
 	// directly into your program.
@@ -78,23 +79,34 @@ public class GuessOrc {
 			distance_to_orcs = mineShaftId - guessedMineShaftId;
 			// Creates an array with potential HINT messages from which one will be randomly selected
 			ArrayList<String> potential_hints = new ArrayList<String>();
+
 			// Finding all potential HINTS.
-				if (distance_to_orcs < 0){
-					potential_hints.add("1"); // Adds index of HINTS of being to the right
+
+			// Checking whether there is stone. If the Position of the Horde (ShaftID+Amount of Moves) is even number
+			// the orcs are under a rock.
+			if ((mineShaftId + current_round) % 2 == 0) {
+				potential_hints.add("3"); // Adds index of HINTS of being under stone
 				}
-				if (Math.abs(distance_to_orcs) > 5){
-					potential_hints.add("4"); // Adds index of HINTS of being far away
+
+			if (distance_to_orcs < 0){
+				potential_hints.add("1"); // Adds index of HINTS of being to the right
 				}
-				if (distance_to_orcs > 0){
-					potential_hints.add("0"); // Adds index of HINTS of being to the left
+
+			if (Math.abs(distance_to_orcs) > 5){
+				potential_hints.add("4"); // Adds index of HINTS of being far away
 				}
-				// TODO: Add checker if under stone or dirt.
-				// Checks how many HINTS are in the Array.
-				int size_of_potential_hint_array = potential_hints.size();
-				// Randomizes for the index of all the potential Hints in the Array
-				int random_hint = randomizer.nextInt(size_of_potential_hint_array);
-				// Extracts the randomly chosen HINT from the Potential HINTS and converts to INT.
-				int randomized_hint = Integer.parseInt(potential_hints.get(random_hint));
+
+			if (distance_to_orcs > 0){
+				potential_hints.add("0"); // Adds index of HINTS of being to the left
+				}
+
+			// TODO: Add checker if under stone or dirt.
+			// Checks how many HINTS are in the Array.
+			int size_of_potential_hint_array = potential_hints.size();
+			// Randomizes for the index of all the potential Hints in the Array
+			int random_hint = randomizer.nextInt(size_of_potential_hint_array);
+			// Extracts the randomly chosen HINT from the Potential HINTS and converts to INT.
+			int randomized_hint = Integer.parseInt(potential_hints.get(random_hint));
 
 			// Calculates all potential HINT messages
 		return randomized_hint;
@@ -113,11 +125,11 @@ public class GuessOrc {
 		int i = 0; //Testing Variable - remove for final program
 
 		// Initialize the first round with no_move made and no_hint.
-		int amount_of_moves = NO_MOVE_MADE;
-		int hint_ID = NO_HINT;
 
+		int hint_ID = NO_HINT;
+		//TODO: Problem here! What should be the parameter of printMap?
 		while (i <= 2) {
-			printMap(amount_of_moves, hint_ID);
+			printMap(guessedMineShaftID, hint_ID);
 			System.out.println("Please enter your first guess: ");
 			input_user = scn.next();
 			input_user_is_correct = checkInput(input_user);
