@@ -20,6 +20,8 @@ public class GuessOrc {
 	private int mineShaftId;
 	//Start with Round 1
 	public int current_round = 1;
+	// Is the index of
+	public int randomized_hint;
 	// Amount of attempts we get to stop the orcs.
 	// Use 'MAX_ATTEMPTS'' instead of coding a number
 	// directly into your program.
@@ -39,9 +41,9 @@ public class GuessOrc {
 	public final boolean DEBUG = false;
 
 	// That's what the orc horde looks like.
-	//public final String ORCS =  "  ┗(｀Дﾟ┗(｀ﾟДﾟ´)┛ﾟД´)┛  ";
+	public final String ORCS =  "  ┗(｀Дﾟ┗(｀ﾟДﾟ´)┛ﾟД´)┛  ";
 	// If you use WINDOWS (or the above line just looks wrong) change it to this:
-	public final String ORCS =  "  - - - ORC--ARMY - - -  ";
+	//public final String ORCS =  "  - - - ORC--ARMY - - -  ";
 
 	//Do not modify or access!
 	private int[] history = new int[ MAX_ATTEMPTS ];
@@ -106,7 +108,7 @@ public class GuessOrc {
 			// Randomizes for the index of all the potential Hints in the Array
 			int random_hint = randomizer.nextInt(size_of_potential_hint_array);
 			// Extracts the randomly chosen HINT from the Potential HINTS and converts to INT.
-			int randomized_hint = Integer.parseInt(potential_hints.get(random_hint));
+			randomized_hint = Integer.parseInt(potential_hints.get(random_hint));
 
 			// Calculates all potential HINT messages
 		return randomized_hint;
@@ -129,8 +131,10 @@ public class GuessOrc {
 		int hint_ID = NO_HINT;
 		//TODO: Problem here! What should be the parameter of printMap?
 		while (i <= 2) {
-			printMap(guessedMineShaftID, hint_ID);
+			printMap(-1, hint_ID);
 			System.out.println("Please enter your first guess: ");
+			//DEBUG
+			System.out.println("The ORCS are in" + mineShaftId);
 			input_user = scn.next();
 			input_user_is_correct = checkInput(input_user);
 
@@ -142,6 +146,9 @@ public class GuessOrc {
 					input_user_is_correct = checkInput(input_user);
 				}
 			guessedMineShaftID = getColumnAsInt(input_user_as_char);
+			calculateHint(guessedMineShaftID);
+
+			System.out.println(HINTS[randomized_hint]);
 
 			i++;
 			System.out.println(input_user_as_char);
