@@ -2,6 +2,7 @@
 *                Programmierung 1 HS 2018 - Serie 4-1                         *
 \* ************************************************************************* */
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -15,7 +16,6 @@ public class GuessOrc {
 	public char input_user_as_char;
 	//Mineshaft ID guessed by user
 	public int guessedMineShaftID;
-
 	// Store the orc chieftain position.
 	private int mineShaftId;
 
@@ -59,6 +59,7 @@ public class GuessOrc {
 		GuessOrc game = new GuessOrc();
 		game.resetHistory();
 		game.start();
+
 	}
 
 	/**
@@ -67,18 +68,36 @@ public class GuessOrc {
 	 * @param guessedMineShaftId the guessed mine shaft.
 	 * @return the id for a hint in HINT.
 	 */
-	public int calculateHint( int guessedMineShaftId ) {
-		// Your code goes here
-		int distance_to_orcs;
-		distance_to_orcs = mineShaftId - guessedMineShaftId;
+		public int calculateHint( int guessedMineShaftId ) {
+			// Your code goes here
+			// Randomizer variable to randomize between potential HINTS.
+			Random randomizer = new Random();
+			// Calculates the distance between the guess and the real location. If Distance > 0 then the orcs are
+			// to the left and if < 0 then to the right.
+			int distance_to_orcs;
+			distance_to_orcs = mineShaftId - guessedMineShaftId;
+			// Creates an array with potential HINT messages from which one will be randomly selected
+			ArrayList<String> potential_hints = new ArrayList<String>();
+			// Finding all potential HINTS.
+				if (distance_to_orcs < 0){
+					potential_hints.add("1"); // Adds index of HINTS of being to the right
+				}
+				if (Math.abs(distance_to_orcs) > 5){
+					potential_hints.add("4"); // Adds index of HINTS of being far away
+				}
+				if (distance_to_orcs > 0){
+					potential_hints.add("0"); // Adds index of HINTS of being to the left
+				}
+				// TODO: Add checker if under stone or dirt.
+				// Checks how many HINTS are in the Array.
+				int size_of_potential_hint_array = potential_hints.size();
+				// Randomizes for the index of all the potential Hints in the Array
+				int random_hint = randomizer.nextInt(size_of_potential_hint_array);
+				// Extracts the randomly chosen HINT from the Potential HINTS and converts to INT.
+				int randomized_hint = Integer.parseInt(potential_hints.get(random_hint));
 
-		// Current State: We need to generate the Hint ID (which is the index of the HINT Array(?)). We need somehow
-		// to check whether the orcs are currently under a stone under dirt.
-
-		/*switch (distance_to_orcs){
-			case
-		}
-		return 1;*/
+			// Calculates all potential HINT messages
+		return randomized_hint;
 	}
 
 	/**
