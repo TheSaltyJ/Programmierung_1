@@ -25,7 +25,13 @@ public class GuessOrc {
 	// Use 'MAX_ATTEMPTS'' instead of coding a number
 	// directly into your program.
 	public final int MAX_ATTEMPTS = 6;
-
+	// Randomizer variable to randomize between potential HINTS.
+	Random randomizer = new Random();
+	// Calculates the distance between the guess and the real location. If Distance > 0 then the orcs are
+	// to the left and if < 0 then to the right.
+	int distance_to_orcs;
+	// Creates an array with potential HINT messages from which one will be randomly selected
+	ArrayList<String> potential_hints = new ArrayList<String>();
 	// Number of mine shafts from which orcs can arrive.
 	public final int MINE_SHAFTS = 12;
 
@@ -72,24 +78,19 @@ public class GuessOrc {
 	 */
 		public int calculateHint( int guessedMineShaftId ) {
 			// Your code goes here
-			// Randomizer variable to randomize between potential HINTS.
-			Random randomizer = new Random();
-			// Calculates the distance between the guess and the real location. If Distance > 0 then the orcs are
-			// to the left and if < 0 then to the right.
-			int distance_to_orcs;
 			distance_to_orcs = mineShaftId - guessedMineShaftId;
-			// Creates an array with potential HINT messages from which one will be randomly selected
-			ArrayList<String> potential_hints = new ArrayList<String>();
 
 			// Finding all potential HINTS.
-
 			// Checking whether there is stone. If the Position of the Horde (ShaftID+Amount of Moves) is even number
 			// the orcs are under a rock.
-			if ((mineShaftId + current_round) % 2 == 0) {
+			if ((mineShaftId + (current_round-1)) % 2 == 0) {
 				potential_hints.add("3"); // Adds index of HINTS of being under stone
 				}
+				else {
+					potential_hints.add("2");
+			}
 
-			if (distance_to_orcs < 0){
+			if (distance_to_orcs > 0){
 				potential_hints.add("1"); // Adds index of HINTS of being to the right
 				}
 
@@ -97,19 +98,22 @@ public class GuessOrc {
 				potential_hints.add("4"); // Adds index of HINTS of being far away
 				}
 
-			if (distance_to_orcs > 0){
+			if (distance_to_orcs < 0){
 				potential_hints.add("0"); // Adds index of HINTS of being to the left
 				}
 
-			// TODO: Add checker if under stone or dirt.
+			// TODO: Add checker if under dirt.
 			// Checks how many HINTS are in the Array.
 			int size_of_potential_hint_array = potential_hints.size();
 			// Randomizes for the index of all the potential Hints in the Array
 			int random_hint = randomizer.nextInt(size_of_potential_hint_array);
 			// Extracts the randomly chosen HINT from the Potential HINTS and converts to INT.
 			int randomized_hint = Integer.parseInt(potential_hints.get(random_hint));
-
 			// Calculates all potential HINT messages
+			System.out.println(potential_hints);
+			//reset the array
+			potential_hints.clear();
+
 		return randomized_hint;
 	}
 
@@ -141,10 +145,12 @@ public class GuessOrc {
 			}
 			// converts the string to char
 			input_user_as_char = input_user.charAt(0);
+			System.out.println(input_user);
 			System.out.println(mineShaftId);
 			guessedMineShaftID = getColumnAsInt(input_user_as_char);
 			current_round++;
 			hint_ID = calculateHint(guessedMineShaftID);
+
 
 		} while (current_round < MAX_ATTEMPTS);
 
