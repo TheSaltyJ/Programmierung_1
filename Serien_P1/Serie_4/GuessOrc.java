@@ -48,9 +48,9 @@ public class GuessOrc {
 	public final boolean DEBUG = false;
 
 	// That's what the orc horde looks like.
-	//public final String ORCS =  "  ┗(｀Дﾟ┗(｀ﾟДﾟ´)┛ﾟД´)┛  ";
+	public final String ORCS =  "  ┗(｀Дﾟ┗(｀ﾟДﾟ´)┛ﾟД´)┛  ";
 	// If you use WINDOWS (or the above line just looks wrong) change it to this:
-	public final String ORCS =  "  - - - ORC--ARMY - - -  ";
+	//public final String ORCS =  "  - - - ORC--ARMY - - -  ";
 
 	//Do not modify or access!
 	private int[] history = new int[ MAX_ATTEMPTS ];
