@@ -17,6 +17,8 @@ public class GuessOrc {
 	//Mineshaft ID guessed by user
 	public int guessedMineShaftID;
 	public int hint_ID;
+	// Game runs as long as the player has not won or MAX_Attemps is not reached
+	boolean stopGame = false;
 	// Store the orc chieftain position.
 	private int mineShaftId;
 	//Start with Round 1
@@ -55,11 +57,11 @@ public class GuessOrc {
 	private int[] historyHelpers = new int[ MAX_ATTEMPTS ];
 
 	private final String[] HINTS = new String[] {
-			"Your Seismometer tells you that the orcs are to the left",
-			"Your Seismometer tells you that the orcs are  to the right",
-			"Your Seismometer tells you that the orcs are under dirt",
-			"Your Seismometer tells you that the orcs are under stone",
-			"Your Seismometer tells you that the orcs are very far away"
+			"to the left",
+			"to the right",
+			"under dirt",
+			"under stone",
+			"very far away"
 	};
 
 	// DO NOT CHANGE THIS METHOD!
@@ -77,7 +79,11 @@ public class GuessOrc {
 	 * @return the id for a hint in HINT.
 	 */
 		public int calculateHint( int guessedMineShaftId ) {
-			// Your code goes here
+			// Reset the array each round
+			potential_hints.clear();
+			// Calculates the distance from the guess towards the real location. The sign of the value indicates
+			// left and right and the stone/dirt location is only dependant on the current round and the far away
+			// message can be calculated with the absolute distance.
 			distance_to_orcs = mineShaftId - guessedMineShaftId;
 
 			// Finding all potential HINTS.
@@ -109,10 +115,6 @@ public class GuessOrc {
 			int random_hint = randomizer.nextInt(size_of_potential_hint_array);
 			// Extracts the randomly chosen HINT from the Potential HINTS and converts to INT.
 			int randomized_hint = Integer.parseInt(potential_hints.get(random_hint));
-			// Calculates all potential HINT messages
-			System.out.println(potential_hints);
-			//reset the array
-			potential_hints.clear();
 
 		return randomized_hint;
 	}
@@ -145,14 +147,34 @@ public class GuessOrc {
 			}
 			// converts the string to char
 			input_user_as_char = input_user.charAt(0);
-			System.out.println(input_user);
-			System.out.println(mineShaftId);
 			guessedMineShaftID = getColumnAsInt(input_user_as_char);
+			// check if game should be stopped
+			stopGame();
+
+			if (stopGame == false)
+				hint_ID = calculateHint(guessedMineShaftID);
+
 			current_round++;
-			hint_ID = calculateHint(guessedMineShaftID);
+
+		} while (stopGame == false);
 
 
-		} while (current_round < MAX_ATTEMPTS);
+	}
+
+	private boolean stopGame(){
+		if (guessedMineShaftID == mineShaftId & current_round < MAX_ATTEMPTS) {
+			stopGame = true;
+			System.out.println("You win!");
+		}
+		if (current_round == MAX_ATTEMPTS) {
+			stopGame = true;
+			System.out.println("You lose! The orcs attacked from mine shaft '" + getMineShaftAsChar(mineShaftId) + "'");
+		}
+		if (guessedMineShaftID != mineShaftId & current_round < MAX_ATTEMPTS)
+			calculateHint(guessedMineShaftID);
+
+		return stopGame;
+
 
 	}
 
