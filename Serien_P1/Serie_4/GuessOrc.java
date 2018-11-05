@@ -135,7 +135,10 @@ public class GuessOrc {
 		//TODO: Problem here! What should be the parameter of printMap?
 		do {
 			printMap(guessedMineShaftID, hint_ID);
-			System.out.println("Please enter your first guess: ");
+			if (current_round == 1)
+				System.out.println("Please enter your first guess: ");
+			else
+				System.out.println("Next guess? ");
 			input_user = scn.next();
 			input_user_is_correct = checkInput(input_user);
 			// This methods checks whether the input of the user is correct
@@ -162,6 +165,8 @@ public class GuessOrc {
 	}
 
 	private boolean stopGame(){
+		// This method checks whether the game should continue or not.
+		stopGame = false;
 		if (guessedMineShaftID == mineShaftId & current_round < MAX_ATTEMPTS) {
 			stopGame = true;
 			System.out.println("You win!");
@@ -170,9 +175,6 @@ public class GuessOrc {
 			stopGame = true;
 			System.out.println("You lose! The orcs attacked from mine shaft '" + getMineShaftAsChar(mineShaftId) + "'");
 		}
-		if (guessedMineShaftID != mineShaftId & current_round < MAX_ATTEMPTS)
-			calculateHint(guessedMineShaftID);
-
 		return stopGame;
 
 
