@@ -16,6 +16,7 @@ public class GuessOrc {
 	public char input_user_as_char;
 	//Mineshaft ID guessed by user
 	public int guessedMineShaftID;
+	public int hint_ID;
 	// Store the orc chieftain position.
 	private int mineShaftId;
 	//Start with Round 1
@@ -122,39 +123,31 @@ public class GuessOrc {
 		mineShaftId = generator.nextInt(11) + 1;
 		// The first round will be initialized and then the loop starts.
 		System.out.println(generateOrcIntroScreen());
-		int i = 0; //Testing Variable - remove for final program
-
 		// Initialize the first round with no_move made and no_hint.
-
-		int hint_ID = NO_HINT;
+		hint_ID = NO_HINT;
+		guessedMineShaftID = NO_MOVE_MADE;
 		//TODO: Problem here! What should be the parameter of printMap?
-		while (i <= 2) {
+		do {
 			printMap(guessedMineShaftID, hint_ID);
 			System.out.println("Please enter your first guess: ");
 			input_user = scn.next();
 			input_user_is_correct = checkInput(input_user);
-
 			// This methods checks whether the input of the user is correct
 			// and then loops for the case that the user does not input something correct.
-				while (input_user_is_correct == false) {
-					System.out.println("Your input was not correct. Please try again");
-					input_user = scn.next();
-					input_user_is_correct = checkInput(input_user);
-				}
+			while (input_user_is_correct == false) {
+				System.out.println("Your input was not correct. Please try again");
+				input_user = scn.next();
+				input_user_is_correct = checkInput(input_user);
+			}
+			// converts the string to char
+			input_user_as_char = input_user.charAt(0);
+			System.out.println(mineShaftId);
 			guessedMineShaftID = getColumnAsInt(input_user_as_char);
+			current_round++;
+			hint_ID = calculateHint(guessedMineShaftID);
 
-			i++;
-			System.out.println(input_user_as_char);
-			// UPDATE MOVES MADE
-			// UPDATE HINTS
+		} while (current_round < MAX_ATTEMPTS);
 
-		}
-
-
-
-
-
-		return;
 	}
 
 	public boolean checkInput(String x){
