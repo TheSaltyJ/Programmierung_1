@@ -1,6 +1,9 @@
+import java.util.Scanner
+
 public class AddressFile{
     String filename;
     String comma_string;
+    String parsed_string;
 
 
 
@@ -16,6 +19,8 @@ public class AddressFile{
     }
 
     private parseLine(String line){
+         line.trim()
+
 
     }
 
