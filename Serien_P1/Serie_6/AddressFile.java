@@ -1,7 +1,8 @@
-import java.util.Scanner;
+import java.util.*; // Imports Scanner + ArrayList
+import java.io.*; // For FileWriter and IOException
 
 public class AddressFile{
-    String filename;
+    String filename = "C:\\Users\\gehrlein\\NoSync\\Google Drive\\Work\\Studies\\Computer Science\\1. Semester Bachelor\\Programmierung_1\\Serien_P1\\Serie_6\\testfile.csv";
     String comma_string;
     String parsed_string;
 
@@ -11,7 +12,7 @@ public class AddressFile{
         this.filename = filename;
     }
 
-    private String toLine(Address addr){
+    public String toLine(Address addr){
          // Gets all the information of an Address Object and puts them together as string with comma seperated
         String comma_string = String.valueOf(addr.getId()) + "," + addr.getName() + "," + addr.getStreet() + "," + String.valueOf(addr.getZipCode()) + "," + addr.getCity();
 
@@ -21,7 +22,7 @@ public class AddressFile{
     /*Diese Methode liest einen String ein, löscht alle Leerzeichen mit trim() und geht dann mit next durch den String und zieht mit dem delimiter "," alles raus. Daraus wird dann ein
      * Address Object gebaut. */
     private Address parseLine(String line){
-        // We use the scanner to import the Strings and use "," as delimiter. After it is scanned we trim() the whitespaces and convert zip and id to Int.
+
         Scanner s = new Scanner(line).useDelimiter(",");
         String id_s = s.next();
         id_s = id_s.trim();
@@ -39,6 +40,17 @@ public class AddressFile{
         Address parsed_address = new Address( id, name, street, zip, city );
         return parsed_address;
     }
+
+    public void save(ArrayList<Address> addresses) throws IOException{
+        FileWriter fileWriter = new FileWriter(filename);
+
+        for (Address i : addresses) {
+            fileWriter.write(toLine(i) + "\n");
+        }
+        fileWriter.close();
+
+    }
+
 
 
 
