@@ -3,27 +3,29 @@ import java.util.Scanner;
 public class mytest{
 
     public static void main(String[] args){
-        Address addr = new Address( 1, "Max Muster", "Neubrückstr. 10", 3012, "Bern" );
-        String string = "1, Max Muster   , Neubrückstrasse.10 , 3012, Bern";
+        String line = "1, Max Muster, Neubrückstr. 10    ,3012,Bern";
+        // We use the scanner to import the Strings and use "," as delimiter. After it is scanned we trim() the whitespaces and convert zip and id to Int.
+        Scanner s = new Scanner(line).useDelimiter(",");
+        String id_s = s.next();
+        id_s = id_s.trim();
+        int id = Integer.parseInt(id_s);
+        String name = s.next();
+        name = name.trim();
+        String street = s.next();
+        street = street.trim();
+        String zip_s = s.next();
+        zip_s = zip_s.trim();
+        int zip = Integer.parseInt(zip_s);
+        String city = s.next();
+        city = city.trim();
 
-
-        parseLine(string);
+        Address parsed_address = new Address( id, name, street, zip, city );
         System.out.println(parsed_address);
 
 
 
-    }
-    public Address parseLine(String line){
-        Scanner s = new Scanner(line.trim()).useDelimiter(",");
-        // Scans the next until "," and parses it as int
-        int id = Integer.parseInt(s.next());
-        String name = s.next();
-        String street = s.next();
-        int zip = Integer.parseInt(s.next());
-        String city = s.next();
 
-        Address parsed_address = new Address( id, name, street, zip, city );
-        return parsed_address;
     }
+
 
 }

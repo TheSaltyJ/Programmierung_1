@@ -21,20 +21,25 @@ public class AddressFile{
     /*Diese Methode liest einen String ein, löscht alle Leerzeichen mit trim() und geht dann mit next durch den String und zieht mit dem delimiter "," alles raus. Daraus wird dann ein
      * Address Object gebaut. */
     private Address parseLine(String line){
-        Scanner s = new Scanner(line.trim()).useDelimiter(",");
-        // Scans the next until "," and parses it as int
-        int id = Integer.parseInt(s.next());
+        // We use the scanner to import the Strings and use "," as delimiter. After it is scanned we trim() the whitespaces and convert zip and id to Int.
+        Scanner s = new Scanner(line).useDelimiter(",");
+        String id_s = s.next();
+        id_s = id_s.trim();
+        int id = Integer.parseInt(id_s);
         String name = s.next();
+        name = name.trim();
         String street = s.next();
-        int zip = Integer.parseInt(s.next());
+        street = street.trim();
+        String zip_s = s.next();
+        zip_s = zip_s.trim();
+        int zip = Integer.parseInt(zip_s);
         String city = s.next();
+        city = city.trim();
 
         Address parsed_address = new Address( id, name, street, zip, city );
         return parsed_address;
     }
-    private void save(ArrayList<Address> addresses){
 
-    }
 
 
 }
