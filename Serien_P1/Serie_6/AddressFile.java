@@ -1,8 +1,8 @@
 import java.util.*; // Imports Scanner + ArrayList
-import java.io.*; // For FileWriter and IOException
+import java.io.*; // For FileWriter and IOException and File
 
 public class AddressFile{
-    String filename = "C:\\Users\\gehrlein\\NoSync\\Google Drive\\Work\\Studies\\Computer Science\\1. Semester Bachelor\\Programmierung_1\\Serien_P1\\Serie_6\\testfile.csv";
+    String filename;
     String comma_string;
     String parsed_string;
 
@@ -49,6 +49,20 @@ public class AddressFile{
         }
         fileWriter.close();
 
+    }
+    /* Diese Methode liest die Datei filename Zeile für Zeile ein und wandelt jede Zeile mit Hilfe der Methode parseLine in ein Address Objekt um. Die Gesamtheit soll dann in einem
+    ArrayList zurückgegeben werden.
+     */
+
+    public ArrayList<Address> load() throws IOException{
+
+        Scanner sc = new Scanner(new File(filename));
+        ArrayList<Address> list = new ArrayList<Address>();
+
+        while (sc.hasNextLine()) {
+            list.add(parseLine(sc.nextLine()));
+        }
+        return list;
     }
 
 
