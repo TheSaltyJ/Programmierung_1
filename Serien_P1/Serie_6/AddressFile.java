@@ -62,7 +62,7 @@ public class AddressFile{
             list.add(parseLine(sc.nextLine()));
         }
         return list;
-    }
+    } // just a test
 
 
 
