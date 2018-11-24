@@ -36,7 +36,7 @@ public class FileTest
 			System.out.println( "\nInvalid file.\n" );
 		}
 
-
+		/*
 
 
 		// ------------ Testing labelled files ------------
@@ -57,5 +57,5 @@ public class FileTest
 		} catch ( Exception e ) {
 			System.out.println( "\nInvalid file.\n" );
 		}
-	}
+	*/}
 }

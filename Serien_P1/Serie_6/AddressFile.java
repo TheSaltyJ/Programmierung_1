@@ -18,7 +18,7 @@ public class AddressFile{
         this.filename = filename;
     }
 
-    public String toLine(Address addr){
+    protected String toLine(Address addr){
          // Gets all the information of an Address Object and puts them together as string with comma seperated
         String comma_string = String.valueOf(addr.getId()) + "," + addr.getName() + "," + addr.getStreet() + "," + String.valueOf(addr.getZipCode()) + "," + addr.getCity();
 
@@ -27,7 +27,7 @@ public class AddressFile{
     // Frage: Wann nutzt man bspw. String.valueOf(int) und wann wie unten line.trim()? Warum nicht String.trim(line)?
     /*Diese Methode liest einen String ein, löscht alle Leerzeichen mit trim() und geht dann mit next durch den String und zieht mit dem delimiter "," alles raus. Daraus wird dann ein
      * Address Object gebaut. */
-    private Address parseLine(String line){
+    protected Address parseLine(String line){
         Scanner s = new Scanner(line).useDelimiter(",");
 
         int id = Integer.parseInt((s.next().trim()));
@@ -62,11 +62,5 @@ public class AddressFile{
             list.add(parseLine(sc.nextLine()));
         }
         return list;
-    } // just a test
-
-
-
-
-
-
+    }
 }
