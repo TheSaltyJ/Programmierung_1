@@ -8,9 +8,9 @@ import java.util.*; // Imports Scanner + ArrayList
 import java.io.*; // For FileWriter and IOException and File
 
 public class AddressFile{
-    String filename;
-    String comma_string;
-    String parsed_string;
+    private String filename;
+    private String comma_string;
+    private String parsed_string;
 
 
 
