@@ -1,3 +1,8 @@
+/* ************************************************************************* *\
+*                Programmierung 1 HS 2018 - Serie 6-1                         *
+*		Jonas Gehrlein (15-127-541) & Jan Dietrich (10-100-436)	              *
+\* ************************************************************************* */
+
 import java.util.*;
 
 public class AddressFileLabelled extends AddressFile{
@@ -6,8 +11,7 @@ public class AddressFileLabelled extends AddressFile{
         super(filename);
     }
 
-
-
+    // Diese Methode sucht anhand der labels in einer Zeile nach den jeweiligen Einträgen und baut anschliessend ein Address Objekt daraus. Die Methode ist protected, da sie von aussen aufgerufen werden soll.gui
     protected Address parseLine(String line){
 
         String id_label = "id";
@@ -16,15 +20,12 @@ public class AddressFileLabelled extends AddressFile{
         String zip_label = "zip";
         String city_label = "city";
 
-
-        // Habe nicht geschafft hier nur ein scanner objekt zu nutzen. Ggf. gibt es hier elegantere Lösungen.
+        // Habe nicht geschafft hier nur ein scanner objekt zu nutzen. Ggf. gibt es hier elegantere Lösungen?
         Scanner sc_id = new Scanner(line);
         Scanner sc_name = new Scanner(line);
         Scanner sc_zip = new Scanner(line);
         Scanner sc_street = new Scanner(line);
         Scanner sc_city = new Scanner(line);
-
-
 
         sc_id.findInLine(id_label +"[\\s]*:[\\s]*([^;]*)");
         int id = Integer.parseInt(sc_id.match().group(1).trim());
@@ -34,7 +35,6 @@ public class AddressFileLabelled extends AddressFile{
 
         sc_name.findInLine(name_label +"[\\ s ]*:[\\ s ]*([^;]*)");
         String name = sc_name.match().group(1).trim();
-
 
         sc_street.findInLine(street_label +"[\\ s]*:[\\ s]*([^;]*)");
         String street = sc_street.match().group(1).trim();
@@ -47,10 +47,9 @@ public class AddressFileLabelled extends AddressFile{
         return addr;
 
     }
+    // Diese Methode nimmt jede Information des Address Objektes und setzt sie als String in gewünschtem Format zusammen. Die Methode ist protected, da sie von aussen aufgerufen werden soll.
     protected String toLine(Address addr){
-        // Gets all the information of an Address Object and puts them together as string with semicolon seperated
         String semicolon_string = " id:" + String.valueOf(addr.getId()) + ";" + " name:" + addr.getName() + ";" + " street:" + addr.getStreet() + ";" + " zip:" + String.valueOf(addr.getZipCode()) + ";" + " city:" + addr.getCity();
-
         return semicolon_string;
     }
 }
