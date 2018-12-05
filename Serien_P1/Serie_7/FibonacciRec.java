@@ -1,7 +1,7 @@
-public class Fibonacci{
+public class FibonacciRec{
     public static void main(String[] args) {
 
-        // Computation time is very intense. The recursive method does not grow in polynomial time.
+        // Computation time is very intense. The recursive method grows quadratic with O(n^2).
         for (int i = 0; i <= 50; i += 1)
             System.out.print(fib(i) + " ");
     }
